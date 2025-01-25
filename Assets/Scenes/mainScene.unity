@@ -253,9 +253,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerView: {fileID: 1383067801}
   enemyPrefab: {fileID: 7368638582492041482, guid: 8e5e869110c5df74b99e94d8f33ea16a, type: 3}
-  enemyDataSO: {fileID: 0}
+  enemyDataSO: {fileID: 11400000, guid: e32760fdc59b24a40864a31e21675e8d, type: 2}
   enemyRadius: 0.2
-  spawnRate: 5
+  spawnRates:
+  - GameMode: 0
+    spawnRate: 3
+  - GameMode: 1
+    spawnRate: 2
+  - GameMode: 2
+    spawnRate: 2
   enemyService: {fileID: 930840635}
 --- !u!1 &406995305
 GameObject:
