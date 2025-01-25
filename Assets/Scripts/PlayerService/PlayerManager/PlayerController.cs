@@ -27,6 +27,7 @@ public class PlayerController
         grappleDistance = 10f;
         grappleSpeed = 5f;
         enemiesInRadius = new List<Transform>();
+        GameService.Instance.startGame += OnGameStart;
     }
 
     public void OnGameStart()
@@ -106,8 +107,7 @@ public class PlayerController
         foreach(Transform t in toDestroy)
         {
             enemiesInRadius.Remove(t);
-            //change later
-            t.gameObject.SetActive(false);
+            t.gameObject.GetComponent<EnemyView>().ReturnToPool();
         }
 
 

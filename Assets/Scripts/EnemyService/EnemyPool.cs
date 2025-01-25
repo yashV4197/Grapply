@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class EnemyPool
 {
     private EnemyView enemyPrefab;
+    private EnemyDataSO enemyData;
     private List<PooledItem> pooledItems=new List<PooledItem>();
 
-    public EnemyPool(EnemyView enemyPrefab)
+    public EnemyPool(EnemyView enemyPrefab,EnemyDataSO enemyData)
     {
         this.enemyPrefab = enemyPrefab;
+        this.enemyData = enemyData;
     }
 
     public EnemyController GetPooledItem()
@@ -26,7 +29,7 @@ public class EnemyPool
     {
         PooledItem newItem= new PooledItem();
         newItem.isUsed = true;
-        newItem.enemyController=new EnemyController(enemyPrefab);
+        newItem.enemyController=new EnemyController(enemyPrefab,enemyData);
         pooledItems.Add(newItem);
         return newItem.enemyController;
     }

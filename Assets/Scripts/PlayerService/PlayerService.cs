@@ -2,18 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerService : MonoBehaviour
+public class PlayerService
 {
     private PlayerController playerController;
-    [SerializeField] PlayerView playerView;
 
-    //change later
-    private void Start()
-    {
-        Init();
-    }
-
-    public void Init()
+    public PlayerService(PlayerView playerView)
     {
         playerController = new PlayerController(playerView);
     }

@@ -8,8 +8,7 @@ public class BoundaryManager : MonoBehaviour
     [SerializeField] LayerMask EnemyLayer;
     private void Awake()
     {
-        //change later
-        OnGameStart();
+        GameService.Instance.startGame += OnGameStart;
     }
 
     public void OnGameStart()
