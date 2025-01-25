@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -25,7 +26,7 @@ public class GameService: MonoBehaviour
     [SerializeField] EnemyView enemyPrefab;
     [SerializeField] EnemyDataSO enemyDataSO;
     [SerializeField] float enemyRadius;
-    [SerializeField] float spawnRate;
+    [SerializeField] List<SpawnRates> spawnRates;
     //Services
     private PlayerService playerService;
     [SerializeField] EnemyService enemyService;
@@ -39,7 +40,7 @@ public class GameService: MonoBehaviour
     private void Init()
     {
         playerService = new PlayerService(playerView);
-        enemyService.Init(enemyPrefab,enemyDataSO,enemyRadius,spawnRate);
+        enemyService.Init(enemyPrefab,enemyDataSO,enemyRadius,spawnRates);
     }
 
 

@@ -1,5 +1,5 @@
 
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,16 +9,16 @@ public class EnemyService: MonoBehaviour
     private List<Transform> currentlySpawnedEnemies;
     private bool isGameRunning;
     private float enemyRadius;
-    private float spawnRate;
     private GameMode currentGameMode;
     private float timer;
-
+    private List<SpawnRates> spawnRates;
+    private float currentSpawnRate;
     public void OnGameStart()
     {
         currentlySpawnedEnemies.Clear();
         isGameRunning = true;
         timer = 0f;
-
+        currentSpawnRate = 2f;
         /*
         while(currentlySpawnedEnemies.Count<3)
         {
@@ -27,10 +27,10 @@ public class EnemyService: MonoBehaviour
         
     }
 
-    public void Init(EnemyView enemyPrefab, EnemyDataSO enemyDataSO, float enemyRadius, float spawnRate)
+    public void Init(EnemyView enemyPrefab, EnemyDataSO enemyDataSO, float enemyRadius, List<SpawnRates> spawnRates)
     {
         this.enemyRadius = enemyRadius;
-        this.spawnRate = spawnRate;
+        this.spawnRates=spawnRates;
         enemyPool = new EnemyPool(enemyPrefab, enemyDataSO);
         currentlySpawnedEnemies = new List<Transform>();
         GameService.Instance.startGame += OnGameStart;
@@ -43,7 +43,7 @@ public class EnemyService: MonoBehaviour
         if(isGameRunning)
         {
             timer += Time.deltaTime;
-            if(timer>spawnRate)
+            if(timer>currentSpawnRate)
             {
                 SpawnEnemy();
                 timer = 0f;
@@ -55,6 +55,15 @@ public class EnemyService: MonoBehaviour
     {
         //change later from UI
         currentGameMode = GameMode.EASY;
+        SpawnRates item=spawnRates.Find(i=>i.GameMode == gameMode);
+        if (item!=null)
+        {
+            currentSpawnRate = item.spawnRate;
+        }
+        else
+        {
+            currentSpawnRate = 2f;
+        }
     }
 
     public void SpawnEnemy()
@@ -69,7 +78,7 @@ public class EnemyService: MonoBehaviour
     private Vector2 CheckValidPosition()
     {
         bool check;
-        Vector2 scrrenPos= new Vector2(Random.Range(0,Screen.width), Random.Range(0,Screen.height));
+        Vector2 scrrenPos= new Vector2(UnityEngine.Random.Range(0,Screen.width), UnityEngine.Random.Range(0,Screen.height));
         Vector2 newPos=Camera.main.ScreenToWorldPoint(scrrenPos);
         int attempts = 100;
         do
@@ -99,4 +108,11 @@ public class EnemyService: MonoBehaviour
         
     }
 
+}
+
+[Serializable]
+public class SpawnRates
+{
+    public GameMode GameMode;
+    public float spawnRate;
 }
