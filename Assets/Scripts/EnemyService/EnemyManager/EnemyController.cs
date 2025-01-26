@@ -12,6 +12,7 @@ public class EnemyController
         enemyView = Object.Instantiate(enemyPrefab);
         this.enemyView.SetController(this);
         this.enemyData = enemyDataSO;
+        GameService.Instance.startGame += ReturnToPool;
     }
 
     public void ActivateEnemy()

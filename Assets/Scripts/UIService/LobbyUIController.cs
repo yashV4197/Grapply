@@ -17,18 +17,19 @@ public class LobbyUIController
         ToggleLobbyStatus(false);
     }
 
-    //remember this
     public void ToggleLobbyStatus(bool status)
     {
         if (status)
         {
             lobbyUIView.gameObject.SetActive(true);
             lobbyUIView.GetGameModeSelectionMenu().SetActive(false);
+            GameService.Instance.UIService.GetInGameUIController().ToggleInGameUIStatus(false);
         }
         else
         {
             lobbyUIView.gameObject.SetActive(false);
             lobbyUIView.GetGameModeSelectionMenu().SetActive(false);
+            GameService.Instance.UIService.GetInGameUIController().ToggleInGameUIStatus(true);
         }
     }
 
@@ -52,6 +53,7 @@ public class LobbyUIController
     public void SetGameMode(GameMode mode)
     {
         GameService.Instance.EnemyService.SetGameMode(mode);
+        GameService.Instance.UIService.GetInGameUIController().SetCurrentGameModeDataUI(mode);
         StartGame();
     }
 

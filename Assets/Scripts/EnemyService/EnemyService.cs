@@ -19,11 +19,6 @@ public class EnemyService: MonoBehaviour
         isGameRunning = true;
         timer = 0f;
         currentSpawnRate = 2f;
-        /*
-        while(currentlySpawnedEnemies.Count<3)
-        {
-            SpawnEnemy();
-        }*/
         
     }
 
@@ -53,8 +48,7 @@ public class EnemyService: MonoBehaviour
 
     public void SetGameMode(GameMode gameMode)
     {
-        //change later from UI
-        currentGameMode = GameMode.EASY;
+        currentGameMode = gameMode;
         SpawnRates item=spawnRates.Find(i=>i.GameMode == gameMode);
         if (item!=null)
         {

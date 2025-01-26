@@ -109,7 +109,7 @@ public class PlayerController
             enemiesInRadius.Remove(t);
             t.gameObject.GetComponent<EnemyView>().ReturnToPool();
         }
-
+        GameService.Instance.UIService.GetInGameUIController().UpdateBalloonsCollected(GameService.Instance.UIService.GetInGameUIController().CurrentBaloonsCollected+toDestroy.Count);
 
     }
 
