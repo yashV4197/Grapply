@@ -48,12 +48,13 @@ public class BoundaryManager : MonoBehaviour
             ray.origin = target.position;
             ray.direction=rb2D.velocity.normalized;
             RaycastHit2D[] hit2D = Physics2D.RaycastAll(ray.origin, ray.direction, 100f);
-
-            Vector2 contactPoint = hit2D[1].point;
-            Vector2 normal=Vector2.Perpendicular(contactPoint-GetNearestEdgePoint(contactPoint)).normalized;
-            Vector2 reflectedDirection = ReflectRay(ray.direction,normal,contactPoint).normalized;
-            rb2D.velocity = -reflectedDirection*3;
-            
+            if (hit2D.Length > 1)
+            {
+                Vector2 contactPoint = hit2D[1].point;
+                Vector2 normal = Vector2.Perpendicular(contactPoint - GetNearestEdgePoint(contactPoint)).normalized;
+                Vector2 reflectedDirection = ReflectRay(ray.direction, normal, contactPoint).normalized;
+                rb2D.velocity = -reflectedDirection * 3;
+            }
         }
 
     }

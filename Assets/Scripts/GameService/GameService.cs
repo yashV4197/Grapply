@@ -21,14 +21,20 @@ public class GameService: MonoBehaviour
         }
     }
 
+    //VIEWS
+    [SerializeField] LobbyUIView lobbyUIView;
+
+
     //DATA
     [SerializeField] PlayerView playerView;
     [SerializeField] EnemyView enemyPrefab;
     [SerializeField] EnemyDataSO enemyDataSO;
     [SerializeField] float enemyRadius;
     [SerializeField] List<SpawnRates> spawnRates;
+
     //Services
     private PlayerService playerService;
+    private UIService uIService;
     [SerializeField] EnemyService enemyService;
 
     public PlayerService PlayerService { get {  return playerService; } }
@@ -41,6 +47,8 @@ public class GameService: MonoBehaviour
     {
         playerService = new PlayerService(playerView);
         enemyService.Init(enemyPrefab,enemyDataSO,enemyRadius,spawnRates);
+        uIService = new UIService(lobbyUIView);
+        uIService.GetLobbyUIController().ToggleLobbyStatus(true);
     }
 
 

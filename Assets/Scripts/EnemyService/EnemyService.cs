@@ -33,8 +33,8 @@ public class EnemyService: MonoBehaviour
         this.spawnRates=spawnRates;
         enemyPool = new EnemyPool(enemyPrefab, enemyDataSO);
         currentlySpawnedEnemies = new List<Transform>();
+        isGameRunning = false;
         GameService.Instance.startGame += OnGameStart;
-        OnGameStart();
     }
 
 
@@ -78,7 +78,7 @@ public class EnemyService: MonoBehaviour
     private Vector2 CheckValidPosition()
     {
         bool check;
-        Vector2 scrrenPos= new Vector2(UnityEngine.Random.Range(0,Screen.width), UnityEngine.Random.Range(0,Screen.height));
+        Vector2 scrrenPos= new Vector2(UnityEngine.Random.Range(0.5f,Screen.width-1f), UnityEngine.Random.Range(0.5f,Screen.height-1f));
         Vector2 newPos=Camera.main.ScreenToWorldPoint(scrrenPos);
         int attempts = 100;
         do
