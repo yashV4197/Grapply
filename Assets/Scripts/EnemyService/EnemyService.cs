@@ -18,7 +18,6 @@ public class EnemyService: MonoBehaviour
         currentlySpawnedEnemies.Clear();
         isGameRunning = true;
         timer = 0f;
-        currentSpawnRate = 2f;
         
     }
 
@@ -53,10 +52,6 @@ public class EnemyService: MonoBehaviour
         if (item!=null)
         {
             currentSpawnRate = item.spawnRate;
-        }
-        else
-        {
-            currentSpawnRate = 2f;
         }
     }
 

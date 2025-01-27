@@ -16,6 +16,6 @@ MonoBehaviour:
   - gameMode: 0
     destroyTime: 5
   - gameMode: 1
-    destroyTime: 4
+    destroyTime: 3
   - gameMode: 2
     destroyTime: 3
