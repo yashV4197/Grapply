@@ -696,6 +696,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 7368638582492041482, guid: 8e5e869110c5df74b99e94d8f33ea16a, type: 3}
   enemyDataSO: {fileID: 11400000, guid: e32760fdc59b24a40864a31e21675e8d, type: 2}
   enemyRadius: 0.2
+  grappleSpeed: 10
   spawnRates:
   - GameMode: 0
     spawnRate: 2
