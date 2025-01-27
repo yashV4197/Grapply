@@ -89,8 +89,6 @@ public class PlayerView : MonoBehaviour
                 lineRenderer.SetPosition(0,ray.origin);
                 
             }
-
-
         }
     }
 

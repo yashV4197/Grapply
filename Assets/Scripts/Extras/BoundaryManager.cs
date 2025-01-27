@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoundaryManager : MonoBehaviour
 {
     [SerializeField] EdgeCollider2D edgeCollider;
+    [SerializeField] float reflectSpeed;
     [SerializeField] LayerMask EnemyLayer;
     private void Awake()
     {
@@ -53,7 +54,7 @@ public class BoundaryManager : MonoBehaviour
                 Vector2 contactPoint = hit2D[1].point;
                 Vector2 normal = Vector2.Perpendicular(contactPoint - GetNearestEdgePoint(contactPoint)).normalized;
                 Vector2 reflectedDirection = ReflectRay(ray.direction, normal, contactPoint).normalized;
-                rb2D.linearVelocity = -reflectedDirection * 3;
+                rb2D.linearVelocity = -reflectedDirection * reflectSpeed;
             }
         }
 
