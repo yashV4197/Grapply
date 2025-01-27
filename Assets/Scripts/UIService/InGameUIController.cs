@@ -11,7 +11,7 @@ public class InGameUIController
     private int currentBaloonsCollected;
     private bool isPaused;
     public int CurrentBaloonsCollected { get { return currentBaloonsCollected; } }
-
+    private bool isEndless;
 
     public InGameUIController(InGameUIView inGameUIView,InGameModeUIDataSO inGameModeUIData)
     {
@@ -33,8 +33,16 @@ public class InGameUIController
     public void UpdateBalloonsCollected(int balloonsCollected)
     {
         currentBaloonsCollected=balloonsCollected;
-        inGameUIView.GetBaloonsCollectedText().text=currentBaloonsCollected.ToString()+"/"+currentInGameUIDataCollection.BalloonsRequired.ToString();
-        CheckIfGameWon();
+        if (isEndless)
+        {
+            inGameUIView.GetBaloonsCollectedText().text = currentBaloonsCollected.ToString();
+        }
+        else
+        {
+            inGameUIView.GetBaloonsCollectedText().text = currentBaloonsCollected.ToString() + "/" + currentInGameUIDataCollection.BalloonsRequired.ToString();
+            CheckIfGameWon();
+        }
+        
     }
 
     public void SetTimer(float timer)
@@ -45,8 +53,16 @@ public class InGameUIController
 
     private void UpdateTimer()
     {
-        int temp = (int)currentTimer;
-        inGameUIView.GetTimerSecondsText().text=temp.ToString();
+        if(isEndless==true)
+        {
+            inGameUIView.GetTimerSecondsTextParent().SetActive(false);
+        }
+        else
+        {
+            int temp = (int)currentTimer;
+            inGameUIView.GetTimerSecondsText().text = temp.ToString();
+        }
+
     }
 
     private void ToggleGameRunningStatus(bool isRunning)
@@ -71,11 +87,14 @@ public class InGameUIController
     {
         if(isGameRunning)
         {
-            currentTimer-=Time.deltaTime;
-            SetTimer(currentTimer);
-            if(currentTimer<=0)
+            if (!isEndless)
             {
-                OnGameLost();
+                currentTimer -= Time.deltaTime;
+                SetTimer(currentTimer);
+                if (currentTimer <= 0)
+                {
+                    OnGameLost();
+                }
             }
         }
     }
@@ -171,4 +190,8 @@ public class InGameUIController
         }
     }
 
+    public void SetGameModeEndless(bool isEndless)
+    {
+        this.isEndless = isEndless;
+    }
 }

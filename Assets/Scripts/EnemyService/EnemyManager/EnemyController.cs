@@ -18,7 +18,7 @@ public class EnemyController
     public void ActivateEnemy()
     {
         enemyView.gameObject.SetActive(true);
-        enemyView.GetRigidbody2D().velocity = Vector3.zero;
+        enemyView.GetRigidbody2D().linearVelocity = Vector3.zero;
         timer = 0f;
     }
     public void ReturnToPool()

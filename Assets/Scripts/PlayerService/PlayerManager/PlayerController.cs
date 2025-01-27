@@ -19,13 +19,13 @@ public class PlayerController
     public bool IsDead {  get { return isDead; } }
     public float GrappleDistance {  get { return grappleDistance; } }
     public bool IsGrappling { get { return isGrappling; } }
-    public PlayerController(PlayerView playerView)
+    public PlayerController(PlayerView playerView,float grappleSpeed)
     {
         this.playerView = playerView;
         this.playerView.SetController(this);
         playerAnimator = playerView.GetPlayerAnimator();
-        grappleDistance = 10f;
-        grappleSpeed = 5f;
+        grappleDistance = 20f;
+        this.grappleSpeed = grappleSpeed;
         enemiesInRadius = new List<Transform>();
         GameService.Instance.startGame += OnGameStart;
     }
@@ -71,8 +71,7 @@ public class PlayerController
         Rigidbody2D rb2D = target.GetComponent<Rigidbody2D>();
         if(rb2D!=null)
         {
-            Debug.Log("hit");
-            rb2D.velocity = (playerView.transform.position - target.position).normalized * grappleSpeed;
+            rb2D.linearVelocity = (playerView.transform.position - target.position).normalized * grappleSpeed;
         }
     }
     public void EndGrapple(Transform grappledObjectTransform)

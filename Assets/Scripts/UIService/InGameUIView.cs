@@ -21,7 +21,7 @@ public class InGameUIView:MonoBehaviour
     [SerializeField] Button exitToLobbyButtonGamePaused;
     [SerializeField] Button exitToLobbyButtonGameWonLost;
 
-
+    [SerializeField] GameObject timerSecondsTextParent;
     private void Start()
     {
         restartButtonGamePaused.onClick.AddListener(RestartGame);
@@ -68,6 +68,6 @@ public class InGameUIView:MonoBehaviour
     public GameObject GetGamePausedMenu() => gamePausedPopUpMenu;
     public GameObject GetGameWonLostMenu() => gameWonLostPopUpMenu;
 
-
+    public GameObject GetTimerSecondsTextParent() => timerSecondsTextParent;
 
 }

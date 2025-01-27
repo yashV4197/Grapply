@@ -30,6 +30,7 @@ public class GameService: MonoBehaviour
     [SerializeField] EnemyView enemyPrefab;
     [SerializeField] EnemyDataSO enemyDataSO;
     [SerializeField] float enemyRadius;
+    [SerializeField] float grappleSpeed;
     [SerializeField] List<SpawnRates> spawnRates;
     [SerializeField] InGameModeUIDataSO inGameModeUIDataSO;
     //Services
@@ -46,7 +47,7 @@ public class GameService: MonoBehaviour
 
     private void Init()
     {
-        playerService = new PlayerService(playerView);
+        playerService = new PlayerService(playerView,grappleSpeed);
         enemyService.Init(enemyPrefab,enemyDataSO,enemyRadius,spawnRates);
         uIService = new UIService(lobbyUIView,inGameUIView,inGameModeUIDataSO);
         uIService.GetLobbyUIController().ToggleLobbyStatus(true);

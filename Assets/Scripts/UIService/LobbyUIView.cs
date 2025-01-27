@@ -12,7 +12,7 @@ public class LobbyUIView: MonoBehaviour
     [SerializeField] Button easyModeButton;
     [SerializeField] Button mediumModeButton;
     [SerializeField] Button hardModeButton;
-
+    [SerializeField] Button endlessModeButton;
 
     private void Start()
     {
@@ -22,6 +22,12 @@ public class LobbyUIView: MonoBehaviour
         mediumModeButton.onClick.AddListener(OnMediumModeSelected);
         hardModeButton.onClick.AddListener(OnHardModeSelected);
         gameModeGoBackButton.onClick.AddListener(GoBackGameModeSelection);
+        endlessModeButton.onClick.AddListener(OnEndlessModeButtonClicked);
+    }
+
+    private void OnEndlessModeButtonClicked()
+    {
+        lobbyUIController?.OnEndlessModeSelected();
     }
 
     private void GoBackGameModeSelection()

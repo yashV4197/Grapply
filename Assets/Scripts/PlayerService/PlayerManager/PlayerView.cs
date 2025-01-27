@@ -66,7 +66,7 @@ public class PlayerView : MonoBehaviour
 
     private IEnumerator GrappleChecker()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.2f);
         playerController.EndGrapple(grappledObjectTransform);
     }
 

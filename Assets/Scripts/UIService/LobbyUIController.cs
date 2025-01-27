@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LobbyUIController
@@ -54,6 +55,7 @@ public class LobbyUIController
     {
         GameService.Instance.EnemyService.SetGameMode(mode);
         GameService.Instance.UIService.GetInGameUIController().SetCurrentGameModeDataUI(mode);
+        GameService.Instance.UIService.GetInGameUIController().SetGameModeEndless(false);
         StartGame();
     }
 
@@ -62,6 +64,12 @@ public class LobbyUIController
         GameService.Instance.startGame?.Invoke();
     }
 
-
+    public void OnEndlessModeSelected()
+    {
+        GameService.Instance.EnemyService.SetGameMode(GameMode.MEDIUM);
+        GameService.Instance.UIService.GetInGameUIController().SetCurrentGameModeDataUI(GameMode.MEDIUM);
+        GameService.Instance.UIService.GetInGameUIController().SetGameModeEndless(true);
+        StartGame();
+    }
 
 }
