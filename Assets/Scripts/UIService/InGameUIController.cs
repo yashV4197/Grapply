@@ -59,6 +59,7 @@ public class InGameUIController
         }
         else
         {
+            inGameUIView.GetTimerSecondsTextParent().SetActive(true);
             int temp = (int)currentTimer;
             inGameUIView.GetTimerSecondsText().text = temp.ToString();
         }
