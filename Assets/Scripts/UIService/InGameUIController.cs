@@ -10,8 +10,11 @@ public class InGameUIController
     private float currentTimer;
     private int currentBaloonsCollected;
     private bool isPaused;
+    private bool canPause;
     public int CurrentBaloonsCollected { get { return currentBaloonsCollected; } }
     private bool isEndless;
+    private float endlessTimer;
+    private bool firstTime;
 
     public InGameUIController(InGameUIView inGameUIView,InGameModeUIDataSO inGameModeUIData)
     {
@@ -28,7 +31,21 @@ public class InGameUIController
         UpdateBalloonsCollected(0);
         TogglePause(false);
         ToggleGameWonLostMenu(false);
+        endlessTimer = 0;
+        CheckCanPauseStatus();
+        CheckFirstTimeStatus();
     }
+
+    private void CheckCanPauseStatus()
+    {
+        if(PlayerPrefs.GetInt("FirstTime",1)==1)
+        {
+            canPause = false;
+            return;
+        }
+        canPause = true;
+    }
+
 
     public void UpdateBalloonsCollected(int balloonsCollected)
     {
@@ -48,23 +65,27 @@ public class InGameUIController
     public void SetTimer(float timer)
     {
         currentTimer = timer;
-        UpdateTimer();
+        if(isEndless==false)
+        {
+            UpdateTimer();
+        }
+        
     }
 
     private void UpdateTimer()
     {
-        if(isEndless==true)
-        {
-            inGameUIView.GetTimerSecondsTextParent().SetActive(false);
-        }
-        else
-        {
-            inGameUIView.GetTimerSecondsTextParent().SetActive(true);
-            int temp = (int)currentTimer;
-            inGameUIView.GetTimerSecondsText().text = temp.ToString();
-        }
+        inGameUIView.GetTimerSecondsTextParent().SetActive(true);
+        int temp = (int)currentTimer;
+        inGameUIView.GetTimerSecondsText().text = temp.ToString();
+    }         
 
+    private void UpdateEndlessTimer(float time)
+    {
+        endlessTimer += time;
+        int temp = (int)endlessTimer;
+        inGameUIView.GetTimerSecondsText().text = temp.ToString();
     }
+
 
     private void ToggleGameRunningStatus(bool isRunning)
     {
@@ -88,13 +109,20 @@ public class InGameUIController
     {
         if(isGameRunning)
         {
-            if (!isEndless)
+            if (firstTime == false)
             {
-                currentTimer -= Time.deltaTime;
-                SetTimer(currentTimer);
-                if (currentTimer <= 0)
+                if (!isEndless)
                 {
-                    OnGameLost();
+                    currentTimer -= Time.deltaTime;
+                    SetTimer(currentTimer);
+                    if (currentTimer <= 0)
+                    {
+                        OnGameLost();
+                    }
+                }
+                else
+                {
+                    UpdateEndlessTimer(Time.deltaTime);
                 }
             }
         }
@@ -113,33 +141,39 @@ public class InGameUIController
 
     public void TogglePause()
     {
-        if(isPaused==true)
+        if (canPause == true)
         {
-            Time.timeScale = 1f;
-            inGameUIView.GetGamePausedMenu().SetActive(false);
-            isPaused = false;
-        }
-        else
-        {
-            Time.timeScale = 0f;
-            inGameUIView.GetGamePausedMenu().SetActive(true);
-            isPaused=true;
+            if (isPaused == true)
+            {
+                Time.timeScale = 1f;
+                inGameUIView.GetGamePausedMenu().SetActive(false);
+                isPaused = false;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+                inGameUIView.GetGamePausedMenu().SetActive(true);
+                isPaused = true;
+            }
         }
     }
 
     public void TogglePause(bool toggle)
     {
-        if(toggle==true)
+        if (canPause == true)
         {
-            Time.timeScale = 0f;
-            inGameUIView.GetGamePausedMenu().SetActive(true);
-            isPaused = true;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-            inGameUIView.GetGamePausedMenu().SetActive(false);
-            isPaused=false;
+            if (toggle == true)
+            {
+                Time.timeScale = 0f;
+                inGameUIView.GetGamePausedMenu().SetActive(true);
+                isPaused = true;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                inGameUIView.GetGamePausedMenu().SetActive(false);
+                isPaused = false;
+            }
         }
     }
     
@@ -194,5 +228,17 @@ public class InGameUIController
     public void SetGameModeEndless(bool isEndless)
     {
         this.isEndless = isEndless;
+    }
+
+    public void CheckFirstTimeStatus()
+    {
+        if(PlayerPrefs.GetInt("FirstSpace",1)==1)
+        {
+            firstTime = true;
+        }
+        else
+        {
+            firstTime = false;
+        }
     }
 }

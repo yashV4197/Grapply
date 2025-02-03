@@ -101,6 +101,7 @@ public class PlayerView : MonoBehaviour
         {
             playerController?.AddEnemyInRadius(collision.transform);
         }
+        playerController?.CheckFirstSpaceClicked();
     }
 
     private void OnTriggerExit2D(Collider2D collision)

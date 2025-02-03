@@ -68,6 +68,11 @@ public class PlayerController
 
     public void PullObject(Transform target)
     {
+        if(PlayerPrefs.GetInt("FirstTime",1)==1)
+        {
+            GameService.Instance.FadeManager.StartTextFading(FadeTextType.GRAPPLE);
+            PlayerPrefs.SetInt("FirstTime", 0);
+        }
         Rigidbody2D rb2D = target.GetComponent<Rigidbody2D>();
         if(rb2D!=null)
         {
@@ -97,6 +102,16 @@ public class PlayerController
 
     public void OnSpaceClicked()
     {
+        if(PlayerPrefs.GetInt("FirstSpace", 1) == 1)
+        {
+            if(enemiesInRadius.Count>0)
+            {
+                PlayerPrefs.SetInt("FirstSpace", 0);
+                GameService.Instance.FadeManager.StartTextFading(FadeTextType.SPACE);
+                GameService.Instance.UIService.GetInGameUIController().CheckFirstTimeStatus();
+                Time.timeScale = 1f;
+            }
+        }
         List<Transform>toDestroy = new List<Transform>();
         foreach(Transform t in enemiesInRadius)
         {
@@ -109,7 +124,15 @@ public class PlayerController
             t.gameObject.GetComponent<EnemyView>().ReturnToPool();
         }
         GameService.Instance.UIService.GetInGameUIController().UpdateBalloonsCollected(GameService.Instance.UIService.GetInGameUIController().CurrentBaloonsCollected+toDestroy.Count);
+    }
 
+    public void CheckFirstSpaceClicked()
+    {
+        if (PlayerPrefs.GetInt("FirstSpace", 1) == 1)
+        {
+            //Time.timeScale = 0f;
+            GameService.Instance.FadeManager.ShowText(FadeTextType.SPACE);
+        }
     }
 
 }

@@ -36,11 +36,13 @@ public class GameService: MonoBehaviour
     //Services
     private PlayerService playerService;
     private UIService uIService;
+    [SerializeField] FadeManager fadeManager;
     [SerializeField] EnemyService enemyService;
 
     public PlayerService PlayerService { get {  return playerService; } }
     public EnemyService EnemyService { get { return enemyService; } }
     public UIService UIService { get { return uIService; } }
+    public FadeManager FadeManager { get { return fadeManager; } }
 
     //ACTIONS
     public UnityAction startGame;
