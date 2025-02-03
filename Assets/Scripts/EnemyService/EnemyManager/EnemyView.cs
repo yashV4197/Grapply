@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class EnemyView: MonoBehaviour
 {
     private EnemyController enemyController;
     [SerializeField] Rigidbody2D rb2D;
+    [SerializeField] int timeIncrease;
     public void SetController(EnemyController enemyController)
     {
         this.enemyController = enemyController;
@@ -21,5 +23,8 @@ public class EnemyView: MonoBehaviour
 
     public Rigidbody2D GetRigidbody2D() => rb2D;
 
-
+    public void ReduceTimersTime()
+    {
+        enemyController?.ReduceTimersTime(timeIncrease);
+    }
 }

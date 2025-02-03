@@ -77,6 +77,7 @@ public class PlayerController
         if(rb2D!=null)
         {
             rb2D.linearVelocity = (playerView.transform.position - target.position).normalized * grappleSpeed;
+            target.GetComponent<EnemyView>()?.ReduceTimersTime();
         }
     }
     public void EndGrapple(Transform grappledObjectTransform)

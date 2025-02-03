@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2D: {fileID: 6772980098623182626}
+  timeIncrease: 3
 --- !u!1 &463466176849181049
 GameObject:
   m_ObjectHideFlags: 0

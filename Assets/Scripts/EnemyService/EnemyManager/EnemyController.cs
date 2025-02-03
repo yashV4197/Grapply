@@ -53,4 +53,17 @@ public class EnemyController
             timer = 0f;
         }
     }
+
+    public void ReduceTimersTime(int time)
+    {
+        if (timer - time < 0)
+        {
+            timer = 0f;
+        }
+        else
+        {
+            timer -= time;
+        }
+    }
+
 }

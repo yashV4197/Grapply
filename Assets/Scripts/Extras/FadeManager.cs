@@ -12,7 +12,6 @@ public class FadeManager : MonoBehaviour
     {
         await Task.Delay(500);
         GameService.Instance.startGame += OnGameStart;
-        PlayerPrefs.DeleteAll();
     }
 
     private void Start()
